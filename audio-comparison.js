@@ -5,11 +5,9 @@ if(typeof BUG != 'function'){
   window.BUG = function(msg){console.debug(msg);};
 }
 var AC_audio_groups = [];
-const Product = 'audio-comparison-lite'; 
+const Product = 'audio-comparison-lite';
 const Prefix = '.' + Product;
 const AC_SEL_GROUP    = Prefix;
-const AC_SEL_FILE_A   = Prefix + '-file-a';
-const AC_SEL_FILE_B   = Prefix + '-file-b';
 const AC_SEL_BTN_PLAY = Prefix + '-play-stop';
 const AC_SEL_BTN_A    = Prefix + '-play-a';
 const AC_SEL_BTN_B    = Prefix + '-play-b';
@@ -27,10 +25,12 @@ const AC_DATASET_BUTTON_PLAY_TEXT = 'buttonPlayText';
 const AC_DATASET_BUTTON_STOP_TEXT = 'buttonStopText';
 const AC_DATASET_PLAYING_A_TEXT   = 'playingAText';
 const AC_DATASET_PLAYING_B_TEXT   = 'playingBText';
+const AC_DATASET_FILE_A = 'fileA';
+const AC_DATASET_FILE_B = 'fileB';
 jQuery(document).ready(async function() {
   DE&&BUG('Audio Comparison Lite\n' +
           '---------------------\n' +
-          'c.2023 kaedinger\n');
+          'c.2024 kaedinger\n');
   var navigator = (typeof window !== 'undefined' && window.navigator) ? window.navigator : null;
   var iOS = (/iP(hone|od|ad)/.test(navigator && navigator.platform));
   var appVersion = navigator && navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
@@ -48,9 +48,9 @@ jQuery(document).ready(async function() {
       DE&&BUG('Button A or Play missing. Bailing out.');
       return;
     }
-    var soundA = AC_loadAudioFile(group, AC_SEL_FILE_A, html5);
+    var soundA = AC_loadAudioFileNew(group, AC_DATASET_FILE_A, html5);
     if( soundA == null ) return;
-    var soundB = btnB != null ? AC_loadAudioFile(group, AC_SEL_FILE_B, html5) : null;
+    var soundB = btnB != null ? AC_loadAudioFileNew(group, AC_DATASET_FILE_B, html5) : null;
     var audio_group = {
       jgroup: group,
       btnPlay: btnPlay,
@@ -78,36 +78,21 @@ jQuery(document).ready(async function() {
   }
   AudioComparison();
 });
-function AC_loadAudioFile(group, selector, useHtml5) {
-  var selName = selector.substring(1);
-  var audio = jQuery(group).find(selector);
-  if( audio === null || audio.length <= 0 ) {
-    DE&&BUG('No file ' + selName + ' found!');
-    return null;
-  } else if( audio.length > 1 ) {
-    DE&&BUG('Too many files ' + selName + ' found!');
+function AC_loadAudioFileNew(group, file, useHtml5) {
+  if (!group.dataset[file]) {
+    DE&&BUG('Missing audio ' + file);
     return null;
   }
-  var sound;
-  if( audio.is('a') ) {
-    sound = audio.attr('href');
-    if( !sound ) {
-      DE&&BUG('Missing href in link ' + selName);
-      return null;
-    }
-  } else {
-    DE&&BUG('No audio file found in ' + selName);
-    return null;
-  }
-  DE&&BUG(selName + ': file ' + sound);
+  var sound = group.dataset[file];
+  DE&&BUG(file + ': ' + sound);
   DE&&BUG("Use html5: " + useHtml5); 
   sound = new Howl({
     src: [sound],
-    volume: 1, 
+    volume: 1,
     loop: true,
     html5: useHtml5,
-    onload: function() { DE&&BUG(selName + ' onload'); },
-    onloaderror: function(id, err) { DE&&BUG(selName + ' onloaderror, err=' + err); },
+    onload: function() { DE&&BUG(file + ' onload'); },
+    onloaderror: function(id, err) { DE&&BUG(file + ' onloaderror, err=' + err); },
   });
   return sound;
 }

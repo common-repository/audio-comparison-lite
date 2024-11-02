@@ -1,7 +1,6 @@
 <?php
 if( ! class_exists( 'audioComparisonLiteStyling' ) ) {
     class audioComparisonLiteStyling {
-        public static function write_log($log) { AC_ACL_write_log('Audio Comparison Lite Styling', $log); }
 public $MAIN_DIV;
 public $PREFIX;
 public function __construct($main_div) {

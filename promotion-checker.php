@@ -1,7 +1,6 @@
 <?php
 if( ! class_exists( 'audioComparisonLitePromotionChecker' ) ) {
   class audioComparisonLitePromotionChecker {
-    public static function write_log($log) { AC_ACL_write_log('Audio Comparison Lite Promotion Checker', $log); }
 public $cache_key;
 public $cache_allowed;
 public function __construct() {
@@ -30,7 +29,6 @@ function request() {
         || 200 !== wp_remote_retrieve_response_code( $remote )
         || empty( wp_remote_retrieve_body( $remote ) )
     ) {
-      $this->write_log("Error: " . $remote->get_error_message());
       set_transient( $this->cache_key_failed, "failed", DAY_IN_SECONDS / 2 );
 			return false;
 		}

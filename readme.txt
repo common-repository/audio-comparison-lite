@@ -4,10 +4,10 @@ Contributors: kaedinger
 Donate link: https://audiocomparison.kaedinger.de/
 Author URI: https://kaedinger.de
 Plugin URI: https://audiocomparison.kaedinger.de/lite
-Tags: audio, comparison, ab testing, mp3, mixing, mastering, engineering, synchronized audio, music, tracks, audio player
+Tags: audio, comparison, ab testing, mixing, mastering
 Requires at least: 4.0
-Tested up to: 6.4.2
-Stable tag: 3.1
+Tested up to: 6.6.2
+Stable tag: 3.4
 Requires PHP: 7.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -22,7 +22,7 @@ Time synchronized A/B comparison for audio files (mp3, wav...).
 This plugin is used to present audio files, typically two versions of the same audio (for instance, an unmixed, *raw* version  and the final *mixed* version of a song), in a time synchronized manner: **by switching seamlessly between files** when the user presses the respective button. (And since version 3 you can **compare up to three files**  in the full version!)
 
 
-Finally a **direct A/B comparison is possible** on your website! You can showcase as many files on one page as you like,  completely independent from each other.
+Finally a **direct A/B comparison is possible** on your website! You can showcase as many files on one page as you like,  completely independent from each other. 
 
 All this with a simple shortcode!
 
@@ -95,6 +95,18 @@ For the time being, please refer to our [demo/documentation page](https://audioc
 
 
 == Changelog ==
+
+= 3.4 =
+
+* Accessibility & security improvements
+
+= 3.3 =
+
+* Performance improvements & cosmetics
+
+= 3.2 =
+
+* Security and performance improvements
 
 = 3.1 =
 
